@@ -1,66 +1,22 @@
 "use client";
 import { step1Schema } from "@/app/schema/flightSchema";
 import useAppStore from "@/app/Store/store";
-import { log } from "console";
+
 import { useState, useEffect } from "react";
+import { getFlights } from "@/app/services/flight/flight"; // Adjust the import path as needed
 
 export default function Step1() {
   const { nextStep, formData, step1 } = useAppStore();
   const [flights, setFlights] = useState([]);
 
   useEffect(() => {
-    /*    fetch("https://raw.githubusercontent.com/Lstanislao/cities-permalink/main/flights.json")
-      .then((res) => res.json())
-      .then((data) => setFlights(data)); */
-    const data: any = [
-      {
-        destination: "Madrid",
-        class: "Economy",
-        priceUSD: 450,
-      },
-      {
-        destination: "Madrid",
-        class: "Business",
-        priceUSD: 920,
-      },
-      {
-        destination: "Madrid",
-        class: "First Class",
-        priceUSD: 1500,
-      },
-      {
-        destination: "New York",
-        class: "Economy",
-        priceUSD: 380,
-      },
-      {
-        destination: "New York",
-        class: "Business",
-        priceUSD: 790,
-      },
-      {
-        destination: "New York",
-        class: "First Class",
-        priceUSD: 1320,
-      },
-      {
-        destination: "Buenos Aires",
-        class: "Economy",
-        priceUSD: 520,
-      },
-      {
-        destination: "Buenos Aires",
-        class: "Business",
-        priceUSD: 1050,
-      },
-      {
-        destination: "Buenos Aires",
-        class: "First Class",
-        priceUSD: 1700,
-      },
-    ];
 
-    setFlights(data);
+    getFlights().then((res) => {
+      console.log("res", res);  
+      setFlights(res.data);
+    }).catch((err) => {
+      console.log("err", err);
+    });
   }, []);
 
   const uniqueDestinations = Array.from(
@@ -92,7 +48,6 @@ export default function Step1() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold">Personal Information</h2>
       <div className="mt-5">
         {error && <div className="font-bold text-red-600">*{error}</div>}
         <div className="grid gap-6 mb-6 md:grid-cols-2">

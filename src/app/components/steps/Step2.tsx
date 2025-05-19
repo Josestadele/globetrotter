@@ -3,58 +3,49 @@ import { useState } from "react";
 import useAppStore from "@/app/Store/store";
 import { step2Schema } from "@/app/schema/flightSchema";
 
+
 export default function Step2() {
   const { nextStep, prevStep, formData, step2 } = useAppStore();
   const [error, setError] = useState<string>("");
-  const [showForm, setShowForm] = useState<boolean>(false);
 
-  const handleExperienceChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+  // Cambia el nombre para que coincida con el render
+  const handle = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     idx: number
   ) => {
-    const { name, value } = e.target;
-
-    const updatedTravels = [...formData.step2.travelers!];
-
-    updatedTravels[idx] = {
-      ...updatedTravels[idx],
-      [name]: value,
+    setError("");
+    const updatedTravelers = [...formData.step2.travelers];
+    updatedTravelers[idx] = {
+      ...updatedTravelers[idx],
+      [e.target.name]: e.target.value,
     };
-
-    step2({
-      travelers: updatedTravels,
-    });
+    step2({ travelers: updatedTravelers });
   };
 
   const addTravel = () => {
-    const newTravel: any = {
+    setError("");
+    const newTravel = {
       name: "",
       birthDate: "",
-      documentType: "passport",
+      documentType: "passport" as "passport" | "id",
       documentNumber: "",
     };
+    step2({ travelerCount: formData.step2.travelerCount + 1 })
+    const updatedTravelers = [...formData.step2.travelers, newTravel];
+    step2({ travelers: updatedTravelers });
 
-    formData.step2.travelers.push(newTravel);
-    setShowForm(true); // Mostrar el formulario al agregar un viajero
   };
 
-  const removeExperience = (idx: number) => {
+  const removeTravel = (idx: number) => {
     setError("");
-    const currentTravel = [...formData.step2.travelers!];
-    const newTravel: any = [];
-
-    currentTravel.filter((e) => {
-      if (e.documentNumber != currentTravel[idx].documentNumber) {
-        newTravel.push(e);
-      }
-    step2({
-      travelers: newTravel,
-    });
-    });
+    const updatedTravelers = formData.step2.travelers.filter((_, i) => i !== idx);
+    step2({ travelers: updatedTravelers });
+    step2({ travelerCount: formData.step2.travelerCount - 1 })
   };
 
   const validateAndNext = () => {
     try {
+      console.log("formData.step2", formData.step2);
       step2Schema.parse(formData.step2);
       setError("");
       nextStep();
@@ -65,85 +56,79 @@ export default function Step2() {
       );
     }
   };
+
   return (
-<div>
-      <h2 className="text-xl font-semibold">Experience Information</h2>
+    <div>
+      
       <div className="mt-5">
         {error && <div className="font-bold text-red-600">*{error}</div>}
         <div>
-            <button
-              className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
-              onClick={addTravel}
+          <button
+            className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
+            onClick={addTravel}
+          >
+            Add Travel
+          </button>
+        </div>
+        <div>
+          {formData.step2.travelers?.map((travel, idx) => (
+            <div
+              key={idx}
+              className="border p-4 rounded-lg mt-4 flex flex-col gap-2"
             >
-              Add Travel
-            </button>
-          </div>
-          <div>
-          {formData.step2.travelers.map((traveler, idx) => (
-          <div key={idx} className="mt-5 border p-4 rounded-lg bg-gray-50">
-            <div className="mb-4">
-              <label className="block text-lg font-medium text-gray-900">
+              <div className="flex justify-between">
+                <h3 className="text-lg font-semibold">Traveler {idx + 1}</h3>
+                <button
+                  className="text-red-500"
+                  onClick={() => removeTravel(idx)}
+                >
+                  Remove
+                </button>
+              </div>
+              <label>
                 Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={travel.name}
+                  onChange={(e) => handle(e, idx)}
+                  required
+                />
               </label>
-              <input
-                type="text"
-                name="name"
-                value={traveler.name}
-                onChange={(e) => handleExperienceChange(e, idx)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-lg font-medium text-gray-900">
+              <label>
                 Birth Date:
+                <input
+                  type="date"
+                  name="birthDate"
+                  value={travel.birthDate}
+                  onChange={(e) => handle(e, idx)}
+                  required
+                />
               </label>
-              <input
-                type="date"
-                name="birthDate"
-                value={traveler.birthDate}
-                onChange={(e) => handleExperienceChange(e, idx)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-lg font-medium text-gray-900">
+              <label>
                 Document Type:
+                <select
+                  name="documentType"
+                  value={travel.documentType}
+                  onChange={(e) => handle(e, idx)}
+                >
+                  <option value="passport">Passport</option>
+                  <option value="id">ID Card</option>
+                </select>
               </label>
-              <select
-                name="documentType"
-                value={traveler.documentType}
-                onChange={(e) => handleExperienceChange(e, idx)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                required
-              >
-                <option value="passport">Passport</option>
-                <option value="id">ID</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label className="block text-lg font-medium text-gray-900">
+              <label>
                 Document Number:
+                <input
+                  type="text"
+                  name="documentNumber"
+                  value={travel.documentNumber}
+                  onChange={(e) => handle(e, idx)}
+                  required
+                />
               </label>
-              <input
-                type="text"
-                name="documentNumber"
-                value={traveler.documentNumber}
-                onChange={(e) => handleExperienceChange(e, idx)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                required
-              />
             </div>
-            <button
-              className="text-white bg-red-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
-              onClick={() => removeExperience(idx)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-          </div>
+          ))}
+        </div>
       </div>
       {/* buttons */}
       <div className="flex justify-between mt-5">
@@ -159,8 +144,4 @@ export default function Step2() {
       </div>
     </div>
   );
-}
-
-function setError(arg0: any) {
-  throw new Error("Function not implemented.");
 }

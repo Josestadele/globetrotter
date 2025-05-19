@@ -2,8 +2,6 @@
 
 "use client";
 import { use} from "react";
-use
-
 import Step1 from "./components/steps/Step1";
 import Step2 from "./components/steps/Step2";
 import Step3 from "./components/steps/Step3";

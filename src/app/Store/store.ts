@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Step1,Step2,Step3,FormData } from '../schema/flightSchema';
-import { get } from 'http';
+
 
 
 interface appStore{
@@ -42,21 +42,21 @@ const useAppStore = create<appStore>((set,get) => (
             assistanceNote:'' 
         },
     },
-    nextStep: () => set((state:any) => ({ step: state.step + 1 })),
-    prevStep: () => set((state:any) => ({ step: state.step - 1 })),
+    nextStep: () => set((state) => ({ step: state.step + 1 })),
+    prevStep: () => set((state) => ({ step: state.step - 1 })),
     getTotalSteps: () => {
         return Object.keys(get().formData).length+1;
     },
-    setInformation: (data: Partial<FormData>) => set((state:any) => ({
+    setInformation: (data: Partial<FormData>) => set((state) => ({
         formData: { ...state.formData, ...data }
     })),
-    step1: (data: Partial<Step1>) => set((state:any) => ({
+    step1: (data: Partial<Step1>) => set((state) => ({
         formData: { ...state.formData, step1: { ...state.formData.step1, ...data } }
     })),
-    step2: (data: Partial<Step2>) => set((state:any) => ({
+    step2: (data: Partial<Step2>) => set((state) => ({
         formData: { ...state.formData, step2: { ...state.formData.step2, ...data } }
     })),
-    step3: (data: Partial<Step3>) => set((state:any) => ({
+    step3: (data: Partial<Step3>) => set((state) => ({
         formData: { ...state.formData, step3: { ...state.formData.step3, ...data } }
     })),
 
