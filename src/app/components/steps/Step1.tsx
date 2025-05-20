@@ -5,6 +5,8 @@ import useAppStore from "@/app/Store/store";
 import { useState, useEffect } from "react";
 import { getFlights } from "@/app/services/flight/flight"; // Adjust the import path as needed
 
+import { flight } from "@/app/interface/flight";
+
 export default function Step1() {
   const { nextStep, formData, step1 } = useAppStore();
   const [flights, setFlights] = useState([]);
@@ -21,7 +23,7 @@ export default function Step1() {
 
   const uniqueDestinations = Array.from(
     new Map(
-      flights.map((flight) => [
+      flights.map((flight :flight) => [
         flight.destination,
         { destination: flight.destination },
       ])
