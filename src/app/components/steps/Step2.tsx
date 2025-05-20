@@ -61,10 +61,10 @@ export default function Step2() {
     <div>
       
       <div className="mt-5">
-        {error && <div className="font-bold text-red-600">*{error}</div>}
+        {error && <div className="text-xs text-red-500 font-medium mb-2">*{error}</div>}
         <div>
           <button
-            className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
+            className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
             onClick={addTravel}
           >
             Add Travel
@@ -74,73 +74,75 @@ export default function Step2() {
           {formData.step2.travelers?.map((travel, idx) => (
             <div
               key={idx}
-              className="border p-4 rounded-lg mt-4 flex flex-col gap-2"
+              className="bg-white border border-blue-200 p-2 rounded-lg mt-3 flex flex-col gap-2 shadow-md"
             >
-              <div className="flex justify-between">
-                <h3 className="text-lg font-semibold">Traveler {idx + 1}</h3>
+              <div className="flex justify-between items-center mb-1">
+                <h3 className="text-sm font-medium text-gray-700">Traveler {idx + 1}</h3>
                 <button
-                  className="text-red-500"
+                  className="text-xs text-red-400 hover:underline transition"
                   onClick={() => removeTravel(idx)}
                 >
                   Remove
                 </button>
               </div>
-              <label>
-                Name:
-                <input
-                  type="text"
-                  name="name"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  value={travel.name}
-                  onChange={(e) => handle(e, idx)}
-                  required
-                />
-              </label>
-              <label>
-                Birth Date:
-                <input
-                  type="date"
-                  name="birthDate"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  value={travel.birthDate}
-                  onChange={(e) => handle(e, idx)}
-                  required
-                />
-              </label>
-              <label>
-                Document Type:
-                <select
-                  name="documentType"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  value={travel.documentType}
-                  onChange={(e) => handle(e, idx)}
-                >
-                  <option value="passport">Passport</option>
-                  <option value="id">ID Card</option>
-                </select>
-              </label>
-              <label>
-                Document Number:
-                <input
-                  type="text"
-                  name="documentNumber"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                  value={travel.documentNumber}
-                  onChange={(e) => handle(e, idx)}
-                  required
-                />
-              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full">
+                <label className="flex flex-col text-[11px] text-gray-500 font-normal w-full">
+                  Name
+                  <input
+                    type="text"
+                    name="name"
+                    className="bg-gray-50 border-b border-blue-100 text-gray-800 text-xs px-1 py-0.5 focus:outline-none focus:border-blue-300 transition w-full"
+                    value={travel.name}
+                    onChange={(e) => handle(e, idx)}
+                    required
+                  />
+                </label>
+                <label className="flex flex-col text-[11px] text-gray-500 font-normal w-full">
+                  Birth Date
+                  <input
+                    type="date"
+                    name="birthDate"
+                    className="bg-gray-50 border-b border-blue-100 text-gray-800 text-xs px-1 py-0.5 focus:outline-none focus:border-blue-300 transition w-full"
+                    value={travel.birthDate}
+                    onChange={(e) => handle(e, idx)}
+                    required
+                  />
+                </label>
+                <label className="flex flex-col text-[11px] text-gray-500 font-normal w-full">
+                  Document Type
+                  <select
+                    name="documentType"
+                    className="bg-gray-50 border-b border-blue-100 text-gray-800 text-xs px-1 py-0.5 focus:outline-none focus:border-blue-300 transition w-full"
+                    value={travel.documentType}
+                    onChange={(e) => handle(e, idx)}
+                  >
+                    <option value="passport">Passport</option>
+                    <option value="id">ID Card</option>
+                  </select>
+                </label>
+                <label className="flex flex-col text-[11px] text-gray-500 font-normal w-full">
+                  Document Number
+                  <input
+                    type="text"
+                    name="documentNumber"
+                    className="bg-gray-50 border-b border-blue-100 text-gray-800 text-xs px-1 py-0.5 focus:outline-none focus:border-blue-300 transition w-full"
+                    value={travel.documentNumber}
+                    onChange={(e) => handle(e, idx)}
+                    required
+                  />
+                </label>
+              </div>
             </div>
           ))}
         </div>
       </div>
       {/* buttons */}
       <div className="flex justify-between mt-5">
-        <button className="text-blue-500 text-lg sm:text-xl" onClick={prevStep}>
+        <button className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition" onClick={prevStep}>
           {"\u2190"} Previous
         </button>
         <button
-          className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
+          className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
           onClick={validateAndNext}
         >
           Next {"\u2192"}

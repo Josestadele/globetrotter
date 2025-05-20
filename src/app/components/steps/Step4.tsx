@@ -5,66 +5,46 @@ export default function Step4() {
   const { prevStep,submitForm } = useAppStore();
   return (
     <div>
-      <h2>Resumen y Confirmación</h2>
-      <p>Detalles del viaje...</p>
-      <div className="flex flex-col mt-5">
-        <h3 className="text-lg font-medium text-gray-900">Detalles del viaje</h3>
-        <p className="text-gray-700">
-          {`Destino: ${useAppStore.getState().formData.step1.destination}`}
-        </p>
-        <p className="text-gray-700">
-          {`Fecha de salida: ${useAppStore.getState().formData.step1.departureDate}`}
-        </p>
-        <p className="text-gray-700">
-          {`Fecha de regreso: ${useAppStore.getState().formData.step1.returnDate}`}
-        </p>
-        <p className="text-gray-700">
-          {`Clase de vuelo: ${useAppStore.getState().formData.step1.flightClass}`}
-        </p>
-        <p className="text-gray-700">
-          {`Número de viajeros: ${useAppStore.getState().formData.step2.travelerCount}`}
-        </p>
-        <p className="text-gray-700">
-          {`Mascotas: ${useAppStore.getState().formData.step2.pets ? "Sí" : "No"}`}
-        </p>
-        <p className="text-gray-700">
-          {`Número de mascotas: ${useAppStore.getState().formData.step2.petCount}`}
-
-        </p>
-        <p className="text-gray-700">
-          {`Equipaje adicional: ${useAppStore.getState().formData.step2.extraLuggage ? "Sí" : "No"}`}
-        </p>
-        <p className="text-gray-700">
-          {`Número de maletas: ${useAppStore.getState().formData.step2.luggageCount}`}
-        </p>
-        <p className="text-gray-700">
-          {`Seguro de viaje: ${useAppStore.getState().formData.step3.travelInsurance ? "Sí" : "No"}`}
-        </p>
-        <p className="text-gray-700">
-          {`Asientos preferidos: ${useAppStore.getState().formData.step3.preferredSeats ? "Sí" : "No"}`}
-        </p>
-
-        <p className="text-gray-700">
-          {`Asistencia especial: ${useAppStore.getState().formData.step3.specialAssistance ? "Sí" : "No"}`} 
-        </p>
-        <p className="text-gray-700">
-          {`Nota de asistencia: ${useAppStore.getState().formData.step3.assistanceNote}`}
-        </p>
+        <div className="max-w-md w-full mx-auto bg-white rounded-xl shadow p-4 sm:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2 text-center">Resumen y Confirmación</h2>
+          <div className="divide-y divide-gray-100">
+            <div className="py-2">
+              <h3 className="text-base font-medium text-gray-700 mb-1">Detalles del viaje</h3>
+              <ul className="space-y-1 text-sm text-gray-600">
+                <li><span className="font-medium">Destino:</span> {useAppStore.getState().formData.step1.destination}</li>
+                <li><span className="font-medium">Fecha de salida:</span> {useAppStore.getState().formData.step1.departureDate}</li>
+                <li><span className="font-medium">Fecha de regreso:</span> {useAppStore.getState().formData.step1.returnDate}</li>
+                <li><span className="font-medium">Clase de vuelo:</span> {useAppStore.getState().formData.step1.flightClass}</li>
+                <li><span className="font-medium">Viajeros:</span> {useAppStore.getState().formData.step2.travelerCount}</li>
+                <li><span className="font-medium">Mascotas:</span> {useAppStore.getState().formData.step2.pets ? "Sí" : "No"}</li>
+                <li><span className="font-medium">Nº de mascotas:</span> {useAppStore.getState().formData.step2.petCount}</li>
+                <li><span className="font-medium">Equipaje adicional:</span> {useAppStore.getState().formData.step2.extraLuggage ? "Sí" : "No"}</li>
+                <li><span className="font-medium">Seguro de viaje:</span> {useAppStore.getState().formData.step3.travelInsurance ? "Sí" : "No"}</li>
+                <li><span className="font-medium">Asientos preferidos:</span> {useAppStore.getState().formData.step3.preferredSeats ? "Sí" : "No"}</li>
+                <li><span className="font-medium">Asistencia especial:</span> {useAppStore.getState().formData.step3.specialAssistance ? "Sí" : "No"}</li>
+                {useAppStore.getState().formData.step3.assistanceNote && (
+                  <li>
+                    <span className="font-medium">Nota de asistencia:</span> {useAppStore.getState().formData.step3.assistanceNote}
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div>
 
       <div className="flex justify-between mt-5">
         <button
-          className="text--blue-500 text-lg sm:text-xl"
+          className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
           onClick={prevStep}
         >
           {"\u2190"} Previous
         </button>
         <button
-          className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
+          className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
           onClick={submitForm}
         >
           Submit
         </button>
-      </div>
       </div>
     </div>
   );

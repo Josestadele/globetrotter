@@ -47,102 +47,101 @@ export default function Step1() {
   };
 
   return (
-    <div>
-      <div className="mt-5">
-        {error && <div className="font-bold text-red-600">*{error}</div>}
-        <div className="grid gap-6 mb-6 md:grid-cols-2">
-          <div>
-            <label
-              className="text-lg font-medium text-gray-900"
-              htmlFor="destination"
-            >
-             Destino
-            </label>
-            <input
-              list="destination-list"
-              name="destination"
-              value={formData.step1.destination}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              required
-            />
-            <datalist id="destination-list">
-            {uniqueDestinations.map((flight: any, index: number) => (
-                <option key={index} value={flight.destination}>
-                  {flight.destination}
-                </option>
-              ))}
-            </datalist>
-
-          </div>
-          <div>
-            <label
-              className="text-lg font-medium text-gray-900"
-              htmlFor="departureDate"
-            >
-              Fecha de salida
-            </label>
-            <input
-              type="date"
-              name="departureDate"
-              value={formData.step1.departureDate}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-              rounded-lg block w-full p-2.5"
-              required
-            />
-          </div>
-          <div>
-            <label
-              className="text-lg font-medium text-gray-900"
-              htmlFor="returnDate"
-            >
-              Fecha de retorno
-            </label>
-            <input
-              type="date"
-              name="returnDate"
-              value={formData.step1.returnDate}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-              rounded-lg block w-full p-2.5"
-              required
-            />
-          </div>
-          <div>
-            <label
-              className="text-lg font-medium text-gray-900"
-              htmlFor="flightClass"
-            >
-              Class
-            </label>
-            <select
-              name="flightClass"
-              value={formData.step1.flightClass}
-              onChange={handleChange}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-              required
-            >
-              <option value="">Seleccione una clase</option>
-              <option value="economy">Económica</option>
-              <option value="business">Business</option>
-              <option value="first">Primera clase</option>
-    
-            </select>
-
-          </div>
-        </div>
-      </div>
-      {/* buttons */}
-      <div className="flex justify-end mt-5">
-        <button
-          className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
-          onClick={validateAndNext}
+<div>
+  <div className="mt-5">
+    {error && <div className="text-xs text-red-500 font-medium mb-2">*{error}</div>}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+      <div>
+        <label
+          className="block mb-1 text-sm font-medium text-gray-700 tracking-wide"
+          htmlFor="flightClass"
         >
-          Next {"\u2192"}
-        </button>
+          Destino
+        </label>
+        <input
+          list="destination-list"
+          name="destination"
+          value={formData.step1.destination}
+          onChange={handleChange}
+          placeholder="Destino"
+          className="bg-white border border-gray-200 text-gray-800 text-xs rounded-md block w-full p-1.5 focus:outline-none focus:ring-1 focus:ring-blue-200"
+          required
+        />
+        <datalist id="destination-list">
+          {uniqueDestinations.map((flight: any, index: number) => (
+            <option key={index} value={flight.destination}>
+              {flight.destination}
+            </option>
+          ))}
+        </datalist>
+      </div>
+      <div>
+        <label
+          className="block mb-1 text-sm font-medium text-gray-700 tracking-wide"
+          htmlFor="departureDate"
+        >
+          Fecha de salida
+        </label>
+        <input
+          type="date"
+          name="departureDate"
+          value={formData.step1.departureDate}
+          onChange={handleChange}
+          placeholder="Fecha de salida"
+          className="bg-white border border-gray-200 text-gray-800 text-xs rounded-md block w-full p-1.5 focus:outline-none focus:ring-1 focus:ring-blue-200"
+          required
+        />
+      </div>
+      <div>
+        <label
+          className="block mb-1 text-sm font-medium text-gray-700 tracking-wide"
+          htmlFor="returnDate"
+        >
+          Fecha de retorno
+        </label>
+        <input
+          type="date"
+          name="returnDate"
+          value={formData.step1.returnDate}
+          onChange={handleChange}
+          placeholder="Fecha retorno"
+          className="bg-white border border-gray-200 text-gray-800 text-xs rounded-md block w-full p-1.5 focus:outline-none focus:ring-1 focus:ring-blue-200"
+          required
+        />
+      </div>
+      <div>
+        <label
+          className="block mb-1 text-sm font-medium text-gray-700 tracking-wide"
+          htmlFor="flightClass"
+        >
+          Tipo de clase
+        </label>
+        <select
+          name="flightClass"
+          value={formData.step1.flightClass}
+          onChange={handleChange}
+          placeholder="Tipo de clase"
+          className="bg-white border border-gray-200 text-gray-800 text-xs rounded-md block w-full p-1.5 focus:outline-none focus:ring-1 focus:ring-blue-200"
+          required
+        >
+          <option value="">Seleccione una clase</option>
+          <option value="economy">Económica</option>
+          <option value="business">Business</option>
+          <option value="first">Primera clase</option>
+        </select>
       </div>
     </div>
+  </div>
+  {/* buttons */}
+  <div className="flex justify-end mt-5">
+    <button
+      className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
+      onClick={validateAndNext}
+    >
+      Next {"\u2192"}
+    </button>
+  </div>
+</div>
   );
 }
 

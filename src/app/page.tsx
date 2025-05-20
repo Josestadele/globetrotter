@@ -27,11 +27,11 @@ export default function Stepper() {
     }
   }
   return (
-    <div className="flex justify-center py-10">
-      <div className="bg-gray-100 rounded-lg w-full p-10 mx-5">
-        <div className="pt-2 mb-5 text-center text-2xl sm:text-3xl font-semibold">
-          Travel
-        </div>
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="bg-white rounded-xl w-full max-w-[700px] p-8 shadow-2xl shadow-gray-500/30">
+          <div className="text-center text-xl sm:text-2xl font-medium text-blue-400 tracking-tight mb-4  rounded-lg bg-white py-2">
+            Globetrotter Travel
+          </div>
         {/* progress bar */}
         <ProgressBar />
 

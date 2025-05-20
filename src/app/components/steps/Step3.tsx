@@ -28,78 +28,62 @@ export default function Step3() {
     };
   return (
     <div>
-      <div>
-          <label
-            className="text-lg font-medium text-gray-900"
-            htmlFor="preferredSeats"
-          >
-            Asientos preferidos ?
-          </label>
-          <div className="flex items-center mt-2">
-            <input
-              type="checkbox"
-              name="preferredSeats"
-              checked={formData.step3.preferredSeats}
-              onChange={handleChange}
-              className="h-4 w-4 text-blue-600 bg-gray-300 ruonded focus:ring-blue-500"
-            />
-          </div>
-
-          <label
-            className="text-lg font-medium text-gray-900"
-            htmlFor="travelInsurance"
-          >
-            Seguro para viajes ?
-          </label>
-          <div className="flex items-center mt-2">
-            <input
-              type="checkbox"
-              name="travelInsurance"
-              checked={formData.step3.travelInsurance}
-              onChange={handleChange}
-              className="h-4 w-4 text-blue-600 bg-gray-300 ruonded focus:ring-blue-500"
-            />
-          </div>
-          <label
-            className="text-lg font-medium text-gray-900"
-            htmlFor="specialAssistance"
-          >
-            Asistencia Especial ?
-          </label>
-          <div className="flex items-center mt-2">
-            <input
-              type="checkbox"
-              name="specialAssistance"
-              checked={formData.step3.specialAssistance}
-              onChange={handleChange}
-              className="h-4 w-4 text-blue-600 bg-gray-300 ruonded focus:ring-blue-500"
-            />
-          </div>
-          {formData.step3.specialAssistance === true && (
-            <div className="mt-4">
-              <label className="block text-lg font-medium text-gray-900" htmlFor="specialAssistanceNote">
-                Especifica la asistencia requerida:
-              </label>
-              <textarea
-                name="assistanceNote"
-                maxLength={200}
-                className="mt-2 w-full rounded-lg border border-gray-300 p-2.5 text-gray-900 text-sm"
-                value={formData.step3.assistanceNote || ""}
-                onChange={(e) => step3({ assistanceNote: e.target.value })}
-                rows={3}
-                placeholder="Describe la asistencia especial que necesitas"
-              />
-            </div>
-          )}
+      <div className="flex flex-row flex-wrap gap-4 mb-4">
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+          <input
+            type="checkbox"
+            name="preferredSeats"
+            checked={formData.step3.preferredSeats}
+            onChange={handleChange}
+            className="h-4 w-4 text-blue-500 border-blue-200 rounded focus:ring-blue-300 transition"
+          />
+          ¿Asientos preferidos?
+        </label>
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+          <input
+            type="checkbox"
+            name="travelInsurance"
+            checked={formData.step3.travelInsurance}
+            onChange={handleChange}
+            className="h-4 w-4 text-blue-500 border-blue-200 rounded focus:ring-blue-300 transition"
+          />
+          ¿Seguro para viajes?
+        </label>
+        <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+          <input
+            type="checkbox"
+            name="specialAssistance"
+            checked={formData.step3.specialAssistance}
+            onChange={handleChange}
+            className="h-4 w-4 text-blue-500 border-blue-200 rounded focus:ring-blue-300 transition"
+          />
+          ¿Asistencia especial?
+        </label>
       </div>
+      {formData.step3.specialAssistance === true && (
+        <div>
+          <label className="block text-xs font-medium text-gray-600 mb-1" htmlFor="specialAssistanceNote">
+            Especifica la asistencia requerida:
+          </label>
+          <textarea
+            name="assistanceNote"
+            maxLength={200}
+            className="w-full rounded-md border border-blue-100 p-2 text-gray-800 text-xs focus:outline-none focus:border-blue-300 transition"
+            value={formData.step3.assistanceNote || ""}
+            onChange={(e) => step3({ assistanceNote: e.target.value })}
+            rows={3}
+            placeholder="Describe la asistencia especial que necesitas"
+          />
+        </div>
+      )}
 
       {/* buttons */}
-      <div className="flex justify-between mt-5">
-        <button className="text-blue-500 text-lg sm:text-xl" onClick={prevStep}>
+      <div className="flex justify-between mt-6">
+        <button className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition" onClick={prevStep}>
           {"\u2190"} Previous
         </button>
         <button
-          className="text-white bg-blue-500 px-3 py-1 rounded-lg text-lg sm:text-xl"
+          className="text-blue-500 text-sm px-1 py-0.5 rounded hover:bg-blue-200 transition"
           onClick={validateAndNext}
         >
           Next {"\u2192"}

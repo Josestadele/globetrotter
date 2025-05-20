@@ -15,11 +15,11 @@ const Circle = ({
     rounded-full border-2 sm:border-4 select-none transition-colors duration-300
     ease-in-out delay-300 ${
       step == currentIndex
-        ? "text-blue-500 border-blue-500"
+        ? "text-blue-500 border-blue-350"
         : `${
             step < currentIndex
               ? "bg-white border-gray-300 text-gray-500"
-              : "bg-blue-500 border-blue-500 text-white"
+              : "bg-blue-300 border-blue-400 text-white"
           }`
     }
     `}
